@@ -34,11 +34,14 @@ public class RoomRule
     /// Check if the current rule is respected.
     /// </summary>
     /// <returns>True if respected, false if not</returns>
+	/// 
+	/// Is it possible to have the room other as a neighbor?
     public virtual bool isAdmissible(Room other)
     {
         return true;
     }
 
+	// Is the room other a neighbor of the room self?
     public bool isConstrained(Room other)
     {
         Vector3 positionToCheck = other.position - self.position;

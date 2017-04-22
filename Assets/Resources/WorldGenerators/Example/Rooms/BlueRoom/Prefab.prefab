@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65112824965485380}
   - component: {fileID: 23687109649514858}
   m_Layer: 0
-  m_Name: BlueRoom
+  m_Name: Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

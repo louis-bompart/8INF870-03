@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class LWG1 : LocalWorldGenerator
 {
+
+	public int sideOfTheSquare = 3;
+
     protected override void InitializeRoomList()
     {
 
@@ -16,7 +19,7 @@ public class LWG1 : LocalWorldGenerator
         rooms.Add(new PurpleRoom());
     }
 
-    private void Start()
+	protected void Start()
     {
         foreach (Vector3 key in localWorld.Keys)
         {
@@ -24,4 +27,27 @@ public class LWG1 : LocalWorldGenerator
         }
         Debug.Log("A World of " + localWorld.Count + " cases has been generated in" + Time.realtimeSinceStartup + "s.");
     }
+
+	protected override void GenerateCSP()
+	{
+		csp = new Dictionary<Vector3, List<Room>>();
+		List<Room> tmp = new List<Room>();
+		tmp.Add(localWorld[Vector3.zero]);
+		csp.Add(Vector3.zero, tmp);
+		for (int i = 0; i < sideOfTheSquare; i++)
+		{
+			for (int j = 0; j < sideOfTheSquare; j++)
+			{
+				Vector3 currentPos = new Vector3(i, 0, j);
+				//Debug.Log (currentPos);
+				if (i != 0 || j != 0)
+				{
+					tmp = generateRoomsCopy(currentPos);
+				//tmp = generateRoomsCopy(-currentPos);
+					csp.Add(currentPos, tmp);
+				}
+
+			}
+		}
+	}
 }

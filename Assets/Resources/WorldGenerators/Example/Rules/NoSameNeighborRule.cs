@@ -8,8 +8,8 @@ public class NoSameNeighborRule : RoomRule
     {
         constainedRooms.Add(Vector3.left);
         constainedRooms.Add(Vector3.right);
-        constainedRooms.Add(Vector3.up);
-        constainedRooms.Add(Vector3.down);
+        //constainedRooms.Add(Vector3.up);
+        //constainedRooms.Add(Vector3.down);
         constainedRooms.Add(Vector3.forward);
         constainedRooms.Add(Vector3.back);
     }

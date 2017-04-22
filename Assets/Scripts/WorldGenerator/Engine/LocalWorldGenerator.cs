@@ -19,6 +19,7 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         UnityEngine.Random.InitState(seed);
         LocalWorldGenerator newLWG = Instantiate<LocalWorldGenerator>(worldGenerators[UnityEngine.Random.Range(1, worldGenerators.Count) - 1]);
         newLWG.radius = UnityEngine.Random.Range(newLWG.localMinRadius, newLWG.localMaxRadius);
+		//peut etre en trop?
         UnityEngine.Random.InitState(seed);
         Room firstRoom = null;
         newLWG.InitializeRoomList();
@@ -189,7 +190,8 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         return selectedKey;
     }
 
-    private void GenerateCSP()
+	// virtual to change the shape of the world
+	protected virtual void GenerateCSP()
     {
         csp = new Dictionary<Vector3, List<Room>>();
         List<Room> tmp = new List<Room>();
@@ -213,7 +215,7 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         }
     }
 
-    private List<Room> generateRoomsCopy(Vector3 atPosition)
+    protected List<Room> generateRoomsCopy(Vector3 atPosition)
     {
         List<Room> rooms = new List<Room>();
         foreach (Room room in this.rooms)
