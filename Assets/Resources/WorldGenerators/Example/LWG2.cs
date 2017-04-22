@@ -4,23 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LWG1 : LocalWorldGenerator
+public class LWG2 : LocalWorldGenerator
 {
     protected override void InitializeRoomList()
     {
         this.rooms = new List<Room>();
-        rooms.Add(new BlueRoom());
         rooms.Add(new RedRoom());
-        rooms.Add(new GreenRoom());
-        rooms.Add(new PurpleRoom());
-        rooms.Add(new YellowRoom());
+        rooms.Add(new BlueRoom());
+        //rooms.Add(new GreenRoom());
+        //rooms.Add(new PurpleRoom());
     }
 
     private void Start()
     {
+       // roomSize = 25f;
         foreach (Vector3 key in localWorld.Keys)
         {
-            Instantiate(localWorld[key].prefab, key*roomSize, localWorld[key].prefab.transform.rotation, transform.parent);
+            Instantiate(localWorld[key].prefab, key * roomSize, localWorld[key].prefab.transform.rotation, transform.parent);
         }
         Debug.Log("A World of " + localWorld.Count + " cases has been generated in " + Time.realtimeSinceStartup + "s.");
     }

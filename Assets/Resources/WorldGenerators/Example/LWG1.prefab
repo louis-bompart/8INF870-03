@@ -51,7 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38287231344eccc4ba5aa38f23f3eaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localMaxRadius: 5
-  localMinRadius: 4
-  roomSize: 1
+  localMaxRadius: 7
+  localMinRadius: 6
+  roomSize: 5
   radius: 0
+  partialCounter: 0
+  partialMax: 10
+  partialThreshold: 0.9

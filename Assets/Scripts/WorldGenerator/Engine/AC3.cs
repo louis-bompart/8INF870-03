@@ -84,7 +84,7 @@ public class AC3
         Queue<Arc> arcs = new Queue<Arc>();
         foreach (Vector3 variable in csp.Keys)
         {
-            List<List<Room>> neighbors = new List<List<Room>>();
+            //List<List<Room>> neighbors = new List<List<Room>>();
 
             Queue<Arc> tmp = GetNeighbors(csp, variable);
             foreach (Arc arc in tmp)

@@ -8,7 +8,7 @@ public abstract class LocalWorldGenerator : MonoBehaviour
 {
     //ToDo put to static when worldgenerators'll be read from Resources
     public static List<LocalWorldGenerator> worldGenerators;
-    
+
     public static LocalWorldGenerator Create(int seed)
     {
         if (worldGenerators == null)
@@ -18,18 +18,19 @@ public abstract class LocalWorldGenerator : MonoBehaviour
 
         UnityEngine.Random.InitState(seed);
         LocalWorldGenerator newLWG = Instantiate<LocalWorldGenerator>(worldGenerators[UnityEngine.Random.Range(1, worldGenerators.Count) - 1]);
-        newLWG.radius = UnityEngine.Random.Range(newLWG.localMinRadius, newLWG.localMaxRadius);
-		//peut etre en trop?
         UnityEngine.Random.InitState(seed);
         Room firstRoom = null;
         newLWG.InitializeRoomList();
         List<Room> copyRooms = new List<Room>(newLWG.rooms);
-        int i = 1;
-        while (firstRoom == null && i-1< copyRooms.Count)
+        //int i = 1;
+        while (firstRoom == null && copyRooms.Count > 0)
         {
-            int index = UnityEngine.Random.Range(i, copyRooms.Count) - 1;
-            i++;
-            firstRoom = copyRooms[index].canBeFirst ? copyRooms[index] : null;
+            int index = UnityEngine.Random.Range(1, copyRooms.Count) - 1;
+            //i++;
+            if (copyRooms[index].canBeFirst)
+                firstRoom = copyRooms[index];
+            else
+                copyRooms.RemoveAt(index);
         }
         if (firstRoom == null)
         {
@@ -77,7 +78,7 @@ public abstract class LocalWorldGenerator : MonoBehaviour
             //return new Dictionary<Vector3, List<Room>>();
             return new Dictionary<Vector3, Room>();
         }
-        Vector3 variable = SelectUnassignedVariable();
+        Vector3 variable = SelectUnassignedVariable(assignment);
         if (variable == Vector3.zero)
         {
             Debug.Log("No variable found during the recursivebacktracking");
@@ -161,13 +162,13 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         //return true;
     }
 
-    private Vector3 SelectUnassignedVariable()
+    private Vector3 SelectUnassignedVariable(Dictionary<Vector3, Room> assignment)
     {
         List<Vector3> selectedKeys = new List<Vector3>();
         int maxValCount = int.MaxValue;
         foreach (Vector3 key in csp.Keys)
         {
-            if (csp[key].Count <= maxValCount && csp[key].Count > 1)
+            if (csp[key].Count <= maxValCount && !assignment.ContainsKey(key))
             {
                 if (csp[key].Count < maxValCount)
                     selectedKeys.Clear();
@@ -190,32 +191,27 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         return selectedKey;
     }
 
-	// virtual to change the shape of the world
-	protected virtual void GenerateCSP()
+    private void GenerateCSP()
     {
         csp = new Dictionary<Vector3, List<Room>>();
         List<Room> tmp = new List<Room>();
         tmp.Add(localWorld[Vector3.zero]);
         csp.Add(Vector3.zero, tmp);
-        for (int i = -radius; i <= radius; i++)
+        for (int i = 0; i < xWorldSize; i++)
         {
-            for (int j = -radius; j <= radius; j++)
+            for (int j = 0; j < yWorldSize; j++)
             {
-                for (int k = -radius; k <= radius; k++)
-                {
-                    Vector3 currentPos = new Vector3(i, j, k);
-                    if (Vector3.Distance(Vector3.zero, currentPos) <= radius && (i != 0 || j != 0 || k != 0))
-                    {
-                        tmp = generateRoomsCopy(currentPos);
-                        //tmp = generateRoomsCopy(-currentPos);
-                        csp.Add(currentPos, tmp);
-                    }
-                }
+                if (i == 0 && j == 0)
+                    continue;
+                Vector3 currentPos = new Vector3(i, 0, j);
+                tmp = generateRoomsCopy(currentPos);
+                //tmp = generateRoomsCopy(-currentPos);
+                csp.Add(currentPos, tmp);
             }
         }
     }
 
-    protected List<Room> generateRoomsCopy(Vector3 atPosition)
+    private List<Room> generateRoomsCopy(Vector3 atPosition)
     {
         List<Room> rooms = new List<Room>();
         foreach (Room room in this.rooms)
@@ -225,13 +221,15 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         return rooms;
     }
 
-    public int localMaxRadius;
-    public int localMinRadius;
+    public int xWorldSize;
+    public int yWorldSize;
     public float roomSize;
-    public int radius;
     public List<Room> rooms;
     public Dictionary<Vector3, Room> localWorld;
     public Dictionary<Vector3, List<Room>> csp;
+    //public int partialCounter;
+    //public int partialMax;
+    //public float partialThreshold;
 
     protected abstract void InitializeRoomList();
 
@@ -248,11 +246,11 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         public int CompareTo(object obj)
         {
             int toReturn = ((obj as CountedRoom).count - this.count);
-            if (toReturn==0)
+            if (toReturn == 0)
             {
                 return UnityEngine.Random.Range(-1, 2);
             }
-            return -toReturn;
+            return toReturn;
         }
     }
 }
