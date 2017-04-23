@@ -30,12 +30,12 @@ public abstract class LocalWorldGenerator : MonoBehaviour
         //    default:
         //        break;
         //}
-        //newLWG.startPosition = new Vector3(UnityEngine.Random.Range(1,newLWG.xWorldSize-2), 0, UnityEngine.Random.Range(1, newLWG.yWorldSize - 2));
-        newLWG.startPosition = new Vector3(1, 0, 1);
+        newLWG.startPosition = new Vector3(UnityEngine.Random.Range(1, newLWG.xWorldSize - 2), 0, UnityEngine.Random.Range(1, newLWG.yWorldSize - 2));
+        //newLWG.startPosition = new Vector3(1, 0, 1);
         do
         {
-            newLWG.exitPosition = new Vector3(newLWG.xWorldSize - 2, 0, newLWG.yWorldSize - 2);
-            //newLWG.exitPosition= new Vector3(UnityEngine.Random.Range(1, newLWG.xWorldSize - 2), 0, UnityEngine.Random.Range(1, newLWG.yWorldSize - 2));
+            //newLWG.exitPosition = new Vector3(newLWG.xWorldSize - 2, 0, newLWG.yWorldSize - 2);
+            newLWG.exitPosition = new Vector3(UnityEngine.Random.Range(1, newLWG.xWorldSize - 2), 0, UnityEngine.Random.Range(1, newLWG.yWorldSize - 2));
         } while (newLWG.exitPosition == newLWG.startPosition);
         newLWG.localWorld = new Dictionary<Vector3, Room>();
         newLWG.GenerateCSP();

@@ -6,10 +6,7 @@ public class IsLinkedToExitRule : RoomRule
 {
     public IsLinkedToExitRule(Room attachedRoom) : base(attachedRoom)
     {
-        constainedRooms.Add(Vector3.left);
-        constainedRooms.Add(Vector3.right);
-        constainedRooms.Add(Vector3.forward);
-        constainedRooms.Add(Vector3.back);
+        constainedRooms.Add(Vector3.zero);
     }
 
     public IsLinkedToExitRule(RoomRule rule, Room newSelf) : base(rule, newSelf)
@@ -23,7 +20,6 @@ public class IsLinkedToExitRule : RoomRule
 
     public override bool isAdmissible(Room other)
     {
-        GenericMazeZone otherZone = (GenericMazeZone)other;
         GenericMazeZone zone = (GenericMazeZone)(this.self);
         return (zone.isExit || zone.linkedToExit);
     }
