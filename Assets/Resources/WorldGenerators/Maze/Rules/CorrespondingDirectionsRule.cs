@@ -23,31 +23,24 @@ public class CorrespondingDirectionsRule : RoomRule
 
 	public override bool isAdmissible(Room other)
 	{
-		bool result = true;
 		GenericMazeZone otherZone = (GenericMazeZone)other;
 		GenericMazeZone zone = (GenericMazeZone)(this.self);
 
 		Vector3 neighbor = otherZone.position - zone.position;
 
-
 		if (neighbor == Vector3.left)
-			result = (zone.leftSideOpen == otherZone.rightSideOpen);
+			return (zone.leftSideOpen == otherZone.rightSideOpen);
 
 		if (neighbor == Vector3.right)
-			result = (zone.rightSideOpen == otherZone.leftSideOpen);
+			return (zone.rightSideOpen == otherZone.leftSideOpen);
 		
 		if (neighbor == Vector3.forward)
-			result = (zone.forwardOpen == otherZone.backOpen);
+			return (zone.forwardOpen == otherZone.backOpen);
 		
 		if (neighbor == Vector3.back)
-			result = (zone.backOpen == otherZone.forwardOpen);
-			
-
-		//Debug.Log ("this case is not a neighbor");
-			
-		return result;
-
-
+			return (zone.backOpen == otherZone.forwardOpen);
+        //Debug.Log ("this case is not a neighbor");
+        return false;
 	}
 }
 

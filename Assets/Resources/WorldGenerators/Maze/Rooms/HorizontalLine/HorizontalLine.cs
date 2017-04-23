@@ -28,8 +28,8 @@ public class HorizontalLine : GenericMazeZone
 	protected override void Initialize()
 	{
 		base.Initialize();
-		//rules.Add(new CorrespondingDirectionsRule(this));
-		prefab = Resources.Load<GameObject>("WorldGenerators/Maze/Rooms/HorizontalLine/Prefab");
+        //rules.Add(new CorrespondingDirectionsRule(this));
+        prefab = Resources.Load<GameObject>("WorldGenerators/Maze/Rooms/HorizontalLine/Prefab");
 	}
 
 }

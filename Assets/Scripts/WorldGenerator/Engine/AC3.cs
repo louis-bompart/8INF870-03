@@ -62,7 +62,7 @@ public class AC3
             foreach (RoomRule rule in room.rules)
             {
                 if (!rule.self.Equals(room))
-                    Debug.Log("Mahna Mahna !!");
+                    Debug.Log("That shouldn't happen");
                 //bool isAdmissible = true;
                 if (rule.isConstrained(candidate))
                 {

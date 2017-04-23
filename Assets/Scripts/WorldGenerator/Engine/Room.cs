@@ -8,7 +8,6 @@ public class Room
     public bool canBeFirst;
     public GameObject prefab;
     public Vector3 position;
-    public float distanceFromCenter;
     public List<RoomRule> rules;
 
 
@@ -24,7 +23,6 @@ public class Room
     {
         this.canBeFirst = room.canBeFirst;
         this.prefab = room.prefab;
-        this.distanceFromCenter = Vector3.Distance(Vector3.zero, position);
         this.rules = new List<RoomRule>();
         foreach (RoomRule rule in room.rules)
         {

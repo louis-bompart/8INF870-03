@@ -28,8 +28,9 @@ public class DeadEndRight : GenericMazeZone
 	protected override void Initialize()
 	{
 		base.Initialize();
-		//rules.Add(new CorrespondingDirectionsRule(this));
-		prefab = Resources.Load<GameObject>("WorldGenerators/Maze/Rooms/DeadEndRight/Prefab");
+        canBeFirst = true;
+        //rules.Add(new CorrespondingDirectionsRule(this));
+        prefab = Resources.Load<GameObject>("WorldGenerators/Maze/Rooms/DeadEndRight/Prefab");
 	}
 
 }
