@@ -40,8 +40,8 @@ public abstract class GenericMazeZone : Room
         isStart = false;
         isExit = false;
         rules.Add(new CorrespondingDirectionsRule(this));
-        rules.Add(new IsLinkedToExitRule(this));
-        rules.Add(new IsLinkedToStartRule(this));
+        //rules.Add(new IsLinkedToExitRule(this));
+        //rules.Add(new IsLinkedToStartRule(this));
         //prefab = Resources.Load<GameObject>("WorldGenerators/Example/Rooms/BlueRoom/Prefab");
     }
 }

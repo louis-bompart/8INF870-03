@@ -32,6 +32,18 @@ public class LWGMaze : LocalWorldGenerator
     {
         foreach (Vector3 key in localWorld.Keys)
         {
+			if (((GenericMazeZone)localWorld [key]).isStart) {
+				//Debug.Log ("dep " + key);
+				GameObject prefabDepArr = Resources.Load<GameObject>("WorldGenerators/Maze/Rooms/depArr");
+				Instantiate(prefabDepArr, key * roomSize, localWorld[key].prefab.transform.rotation, transform.parent);
+				continue;
+			}
+			if (((GenericMazeZone)localWorld [key]).isExit) {
+				//Debug.Log ("arr " + key);
+				GameObject prefabDepArr = Resources.Load<GameObject>("WorldGenerators/Maze/Rooms/depArr");
+				Instantiate(prefabDepArr, key * roomSize, localWorld[key].prefab.transform.rotation, transform.parent);
+				continue;
+			}
             Instantiate(localWorld[key].prefab, key * roomSize, localWorld[key].prefab.transform.rotation, transform.parent);
         }
         Debug.Log("A World of " + localWorld.Count + " cases has been generated in" + Time.realtimeSinceStartup + "s.");
