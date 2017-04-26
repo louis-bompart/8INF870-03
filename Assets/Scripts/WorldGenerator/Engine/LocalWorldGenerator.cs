@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class LocalWorldGenerator : MonoBehaviour
 {
 
-	public bool testtemp = false;
+	//public bool testtemp = false;
     //ToDo put to static when worldgenerators'll be read from Resources
     public static List<LocalWorldGenerator> worldGenerators;
 
@@ -255,9 +255,9 @@ public abstract class LocalWorldGenerator : MonoBehaviour
 	private bool CheckAssignment(Dictionary<Vector3, Room> assignment)//, ref Dictionary<Vector3, List<Room>> csp)
     {
 
-		//return assignment.Count == csp.Count;
+		return assignment.Count == csp.Count;
 
-		if(assignment.Count == csp.Count){
+		/*if(assignment.Count == csp.Count){
 			Vector3 exit = this.exitPosition;
 			Debug.Log ("exit pos " + exit);
 			ResetAllAccessibility (ref csp);
@@ -271,7 +271,7 @@ public abstract class LocalWorldGenerator : MonoBehaviour
 				return ((GenericMazeZone)(csp[exit].First ())).linkedToStart;
 			}
 		}
-        return false;
+        return false;*/
         //Minus 1 due to the center which is already assigned.
         //if (assignment.Count != csp.Count - 1)
         //{
@@ -372,8 +372,8 @@ public abstract class LocalWorldGenerator : MonoBehaviour
     public List<Room> rooms;
     public Dictionary<Vector3, Room> localWorld;
     public Dictionary<Vector3, List<Room>> csp;
-    private Vector3 startPosition;
-    private Vector3 exitPosition;
+    public Vector3 startPosition;
+    public Vector3 exitPosition;
 
     //public int partialCounter;
     //public int partialMax;
