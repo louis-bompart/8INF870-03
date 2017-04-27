@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
-
-	public void playButtonClicked(){
+    private void Awake()
+    {
+        Cursor.visible = true;
+    }
+    public void playButtonClicked(){
 		SceneManager.LoadScene ("WorldGenTest");
 	}
 }

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
 
-	/*public GameObject text;
+    /*public GameObject text;
 	public float initialTime;
 	private float remaningTime;
 
@@ -26,36 +28,63 @@ public class GameManager : MonoBehaviour {
 	}*/
 
 
-	public int size;
-	private LocalWorldGenerator world;
-	private GameObject start;
-	private GameObject finish;
-	private bool initialzed = false;
+    public int size;
+    private LocalWorldGenerator world;
+    private GameObject start;
+    public UnityEngine.UI.Text score;
+    private GameObject finish;
+    private bool initialzed = false;
+    private float startTime;
+    public GameObject panel;
+    bool doOnce;
 
-	void Start(){
-		int seed = 11400;//Random.Range(0,200) * 100;
-		Debug.Log (seed);
-		world = LocalWorldGenerator.Create((int)seed, size);
+    void Start()
+    {
+        doOnce = false;
+        int seed = /*11400;*/UnityEngine.Random.Range(0, 200) * 100;
+        Debug.Log(seed);
+        world = LocalWorldGenerator.Create((int)seed, size);
+        startTime = Time.time;
 
-	}
-	void Update(){
-		if (!initialzed && world.finishInitialize) {
-			start = GameObject.FindGameObjectWithTag ("Respawn");
-			start.AddComponent<StartPosition> ();
+    }
+    void Update()
+    {
+        if (!initialzed && world.finishInitialize)
+        {
+            start = GameObject.FindGameObjectWithTag("Respawn");
+            start.AddComponent<StartPosition>();
 
-			finish = GameObject.FindGameObjectWithTag ("Finish");
-			finish.AddComponent<FinishPosition> ();
-			initialzed = true;
-		} else {
-			if (finish.GetComponent<FinishPosition> ().finished) {
-				endGame ();
-			}
-		}
-	}
+            finish = GameObject.FindGameObjectWithTag("Finish");
+            finish.AddComponent<FinishPosition>();
+            initialzed = true;
+        }
+        else
+        {
+            if (finish.GetComponent<FinishPosition>().finished)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                    endGame();
+                DisplayScore();
+            }
+        }
+    }
 
-	private void endGame(){
-		SceneManager.LoadScene ("Menu");
-	}
-		
+    private void DisplayScore()
+    {
+        if (!Cursor.visible)
+        {
+            Cursor.visible = true;
+        }
+        int time = (int)(startTime - Time.time);
+        score.text = time / 60 + "m" + time % 60 + "s";
+        panel.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void endGame()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
 
 }
