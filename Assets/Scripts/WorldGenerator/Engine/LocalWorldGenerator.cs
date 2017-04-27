@@ -6,12 +6,12 @@ using UnityEngine;
 
 public abstract class LocalWorldGenerator : MonoBehaviour
 {
-
+	public bool finishInitialize = false;
 	//public bool testtemp = false;
     //ToDo put to static when worldgenerators'll be read from Resources
     public static List<LocalWorldGenerator> worldGenerators;
 
-    public static LocalWorldGenerator Create(int seed)
+	public static LocalWorldGenerator Create(int seed, int mazeSize)
     {
         if (worldGenerators == null)
         {
@@ -20,6 +20,8 @@ public abstract class LocalWorldGenerator : MonoBehaviour
 
         UnityEngine.Random.InitState(seed);
         LocalWorldGenerator newLWG = Instantiate<LocalWorldGenerator>(worldGenerators[UnityEngine.Random.Range(1, worldGenerators.Count) - 1]);
+		newLWG.xWorldSize = mazeSize;
+		newLWG.yWorldSize = mazeSize;
         UnityEngine.Random.InitState(seed);
         newLWG.InitializeRoomList();
         List<Room> copyRooms = new List<Room>(newLWG.rooms);

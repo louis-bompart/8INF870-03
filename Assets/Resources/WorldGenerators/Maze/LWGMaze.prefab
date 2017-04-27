@@ -51,6 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131355abc3abd3d4cae21af06d40ee25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishInitialize: 0
   xWorldSize: 8
   yWorldSize: 8
-  roomSize: 3
+  roomSize: 6
+  startPosition: {x: 0, y: 0, z: 0}
+  exitPosition: {x: 0, y: 0, z: 0}

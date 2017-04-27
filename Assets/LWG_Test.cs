@@ -8,7 +8,7 @@ public class LWG_Test : MonoBehaviour {
 	void Start () {
 		int seed = Random.Range(0,200) * 100;//18800;//Random.Range(0,200) * 100;//1800;//1300;//Random.Range(0,200) * 100;//18000;//8700;// //14900
 		Debug.Log (seed);
-		LocalWorldGenerator.Create((int)seed);
+		LocalWorldGenerator.Create((int)seed,6);
 	}
 	
 	// Update is called once per frame
